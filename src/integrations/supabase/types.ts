@@ -14,16 +14,513 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      analytics_snapshots: {
+        Row: {
+          captured_at: string
+          id: string
+          metrics: Json
+          platform: Database["public"]["Enums"]["social_platform"]
+          schedule_id: string | null
+          user_id: string
+        }
+        Insert: {
+          captured_at?: string
+          id?: string
+          metrics?: Json
+          platform: Database["public"]["Enums"]["social_platform"]
+          schedule_id?: string | null
+          user_id: string
+        }
+        Update: {
+          captured_at?: string
+          id?: string
+          metrics?: Json
+          platform?: Database["public"]["Enums"]["social_platform"]
+          schedule_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_snapshots_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "schedules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_instructions: {
+        Row: {
+          audience: string
+          created_at: string
+          cta_template: string
+          disclaimer: string
+          do_not_say: string | null
+          hashtag_style: string
+          signature: string | null
+          tone: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          audience?: string
+          created_at?: string
+          cta_template?: string
+          disclaimer?: string
+          do_not_say?: string | null
+          hashtag_style?: string
+          signature?: string | null
+          tone?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          audience?: string
+          created_at?: string
+          cta_template?: string
+          disclaimer?: string
+          do_not_say?: string | null
+          hashtag_style?: string
+          signature?: string | null
+          tone?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string
+          description: string | null
+          event_date: string
+          id: string
+          name: string
+          recurrence: string
+          source: string
+          tags: string[]
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          event_date: string
+          id?: string
+          name: string
+          recurrence?: string
+          source?: string
+          tags?: string[]
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          event_date?: string
+          id?: string
+          name?: string
+          recurrence?: string
+          source?: string
+          tags?: string[]
+          url?: string | null
+        }
+        Relationships: []
+      }
+      news_items: {
+        Row: {
+          fetched_at: string
+          id: string
+          published_at: string | null
+          region: string
+          source: string | null
+          specialty_tags: string[]
+          summary: string | null
+          title: string
+          url: string
+        }
+        Insert: {
+          fetched_at?: string
+          id?: string
+          published_at?: string | null
+          region?: string
+          source?: string | null
+          specialty_tags?: string[]
+          summary?: string | null
+          title: string
+          url: string
+        }
+        Update: {
+          fetched_at?: string
+          id?: string
+          published_at?: string | null
+          region?: string
+          source?: string | null
+          specialty_tags?: string[]
+          summary?: string | null
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      post_variants: {
+        Row: {
+          approved: boolean
+          body: string
+          created_at: string
+          hashtags: string[]
+          id: string
+          kind: Database["public"]["Enums"]["variant_kind"]
+          language: string
+          metadata: Json
+          platform: Database["public"]["Enums"]["social_platform"]
+          post_id: string
+          title: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          approved?: boolean
+          body: string
+          created_at?: string
+          hashtags?: string[]
+          id?: string
+          kind: Database["public"]["Enums"]["variant_kind"]
+          language?: string
+          metadata?: Json
+          platform: Database["public"]["Enums"]["social_platform"]
+          post_id: string
+          title?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          approved?: boolean
+          body?: string
+          created_at?: string
+          hashtags?: string[]
+          id?: string
+          kind?: Database["public"]["Enums"]["variant_kind"]
+          language?: string
+          metadata?: Json
+          platform?: Database["public"]["Enums"]["social_platform"]
+          post_id?: string
+          title?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_variants_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          brief: string | null
+          citations: Json
+          cover_image_url: string | null
+          created_at: string
+          id: string
+          research_summary: string | null
+          source_event_id: string | null
+          source_news_id: string | null
+          status: Database["public"]["Enums"]["post_status"]
+          topic: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          brief?: string | null
+          citations?: Json
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          research_summary?: string | null
+          source_event_id?: string | null
+          source_news_id?: string | null
+          status?: Database["public"]["Enums"]["post_status"]
+          topic: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          brief?: string | null
+          citations?: Json
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          research_summary?: string | null
+          source_event_id?: string | null
+          source_news_id?: string | null
+          status?: Database["public"]["Enums"]["post_status"]
+          topic?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          city: string | null
+          clinic_name: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          languages: string[]
+          onboarded: boolean
+          registration_number: string | null
+          specialty: string | null
+          timezone: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
+          clinic_name?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          languages?: string[]
+          onboarded?: boolean
+          registration_number?: string | null
+          specialty?: string | null
+          timezone?: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          city?: string | null
+          clinic_name?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          languages?: string[]
+          onboarded?: boolean
+          registration_number?: string | null
+          specialty?: string | null
+          timezone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      publish_logs: {
+        Row: {
+          created_at: string
+          id: string
+          level: string
+          message: string
+          payload: Json | null
+          platform: Database["public"]["Enums"]["social_platform"]
+          schedule_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          level?: string
+          message: string
+          payload?: Json | null
+          platform: Database["public"]["Enums"]["social_platform"]
+          schedule_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          level?: string
+          message?: string
+          payload?: Json | null
+          platform?: Database["public"]["Enums"]["social_platform"]
+          schedule_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "publish_logs_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "schedules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      schedules: {
+        Row: {
+          attempts: number
+          created_at: string
+          external_post_id: string | null
+          id: string
+          last_error: string | null
+          scheduled_for: string
+          social_account_id: string | null
+          status: Database["public"]["Enums"]["schedule_status"]
+          updated_at: string
+          user_id: string
+          variant_id: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          external_post_id?: string | null
+          id?: string
+          last_error?: string | null
+          scheduled_for: string
+          social_account_id?: string | null
+          status?: Database["public"]["Enums"]["schedule_status"]
+          updated_at?: string
+          user_id: string
+          variant_id: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          external_post_id?: string | null
+          id?: string
+          last_error?: string | null
+          scheduled_for?: string
+          social_account_id?: string | null
+          status?: Database["public"]["Enums"]["schedule_status"]
+          updated_at?: string
+          user_id?: string
+          variant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "schedules_social_account_id_fkey"
+            columns: ["social_account_id"]
+            isOneToOne: false
+            referencedRelation: "social_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "schedules_variant_id_fkey"
+            columns: ["variant_id"]
+            isOneToOne: false
+            referencedRelation: "post_variants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_accounts: {
+        Row: {
+          access_token: string | null
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          external_account_id: string
+          handle: string | null
+          id: string
+          meta: Json
+          platform: Database["public"]["Enums"]["social_platform"]
+          refresh_token: string | null
+          scopes: string[] | null
+          status: string
+          token_expires_at: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          external_account_id: string
+          handle?: string | null
+          id?: string
+          meta?: Json
+          platform: Database["public"]["Enums"]["social_platform"]
+          refresh_token?: string | null
+          scopes?: string[] | null
+          status?: string
+          token_expires_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          external_account_id?: string
+          handle?: string | null
+          id?: string
+          meta?: Json
+          platform?: Database["public"]["Enums"]["social_platform"]
+          refresh_token?: string | null
+          scopes?: string[] | null
+          status?: string
+          token_expires_at?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "doctor"
+      post_status:
+        | "draft"
+        | "review"
+        | "approved"
+        | "scheduled"
+        | "published"
+        | "failed"
+        | "archived"
+      schedule_status:
+        | "pending"
+        | "publishing"
+        | "published"
+        | "failed"
+        | "cancelled"
+      social_platform: "instagram" | "facebook" | "linkedin" | "youtube"
+      variant_kind:
+        | "ig_caption"
+        | "ig_reel_script"
+        | "ig_carousel"
+        | "fb_post"
+        | "li_post"
+        | "li_article"
+        | "yt_short_script"
+        | "yt_long_script"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +647,35 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "doctor"],
+      post_status: [
+        "draft",
+        "review",
+        "approved",
+        "scheduled",
+        "published",
+        "failed",
+        "archived",
+      ],
+      schedule_status: [
+        "pending",
+        "publishing",
+        "published",
+        "failed",
+        "cancelled",
+      ],
+      social_platform: ["instagram", "facebook", "linkedin", "youtube"],
+      variant_kind: [
+        "ig_caption",
+        "ig_reel_script",
+        "ig_carousel",
+        "fb_post",
+        "li_post",
+        "li_article",
+        "yt_short_script",
+        "yt_long_script",
+      ],
+    },
   },
 } as const
