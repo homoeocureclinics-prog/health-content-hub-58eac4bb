@@ -56,6 +56,15 @@ function Dashboard() {
           Content Studio, calendar, integrations and analytics will light up over the next phases.
         </p>
 
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link to="/studio/recorder">
+            <Button><Sparkles className="size-4" /> Open teleprompter recorder</Button>
+          </Link>
+          <Link to="/calendar">
+            <Button variant="secondary"><Calendar className="size-4" /> Open content calendar</Button>
+          </Link>
+        </div>
+
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {modules.map((m) => (
             <div

@@ -124,6 +124,60 @@ export type Database = {
         }
         Relationships: []
       }
+      media_assets: {
+        Row: {
+          caption: string | null
+          created_at: string
+          duration_seconds: number | null
+          hashtags: string[]
+          height: number | null
+          id: string
+          kind: string
+          mime_type: string
+          post_id: string | null
+          scheduled_for: string | null
+          size_bytes: number | null
+          storage_path: string
+          updated_at: string
+          user_id: string
+          width: number | null
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          hashtags?: string[]
+          height?: number | null
+          id?: string
+          kind?: string
+          mime_type: string
+          post_id?: string | null
+          scheduled_for?: string | null
+          size_bytes?: number | null
+          storage_path: string
+          updated_at?: string
+          user_id: string
+          width?: number | null
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          hashtags?: string[]
+          height?: number | null
+          id?: string
+          kind?: string
+          mime_type?: string
+          post_id?: string | null
+          scheduled_for?: string | null
+          size_bytes?: number | null
+          storage_path?: string
+          updated_at?: string
+          user_id?: string
+          width?: number | null
+        }
+        Relationships: []
+      }
       news_items: {
         Row: {
           fetched_at: string
