@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StudioRecorderRouteImport } from './routes/studio.recorder'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -23,40 +25,64 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalendarRoute = CalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudioRecorderRoute = StudioRecorderRouteImport.update({
+  id: '/studio/recorder',
+  path: '/studio/recorder',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/studio/recorder': typeof StudioRecorderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/studio/recorder': typeof StudioRecorderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/studio/recorder': typeof StudioRecorderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login'
+  fullPaths: '/' | '/calendar' | '/dashboard' | '/login' | '/studio/recorder'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/login'
-  id: '__root__' | '/' | '/dashboard' | '/login'
+  to: '/' | '/calendar' | '/dashboard' | '/login' | '/studio/recorder'
+  id:
+    | '__root__'
+    | '/'
+    | '/calendar'
+    | '/dashboard'
+    | '/login'
+    | '/studio/recorder'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CalendarRoute: typeof CalendarRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
+  StudioRecorderRoute: typeof StudioRecorderRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +101,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calendar': {
+      id: '/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -82,13 +115,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/studio/recorder': {
+      id: '/studio/recorder'
+      path: '/studio/recorder'
+      fullPath: '/studio/recorder'
+      preLoaderRoute: typeof StudioRecorderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CalendarRoute: CalendarRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
+  StudioRecorderRoute: StudioRecorderRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
