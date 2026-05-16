@@ -58,18 +58,16 @@ function Dashboard() {
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link to="/studio/recorder">
-            <Button><Sparkles className="size-4" /> Open teleprompter recorder</Button>
-          </Link>
-          <Link to="/calendar">
-            <Button variant="secondary"><Calendar className="size-4" /> Open content calendar</Button>
+            <Button variant="secondary"><Sparkles className="size-4" /> Teleprompter recorder</Button>
           </Link>
         </div>
 
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {modules.map((m) => (
-            <div
+            <Link
               key={m.title}
-              className="rounded-2xl border bg-card p-6"
+              to={m.to}
+              className="rounded-2xl border bg-card p-6 block transition hover:-translate-y-0.5 hover:shadow-lg"
               style={{ boxShadow: "var(--shadow-soft)" }}
             >
               <div className="flex items-center gap-3">
@@ -79,16 +77,16 @@ function Dashboard() {
                 <span
                   className="ml-auto text-[10px] uppercase tracking-widest px-2 py-1 rounded-full"
                   style={{
-                    background: m.status === "ready" ? "color-mix(in oklab, var(--success) 15%, transparent)" : "var(--muted)",
-                    color: m.status === "ready" ? "var(--success)" : "var(--muted-foreground)",
+                    background: "color-mix(in oklab, var(--success) 15%, transparent)",
+                    color: "var(--success)",
                   }}
                 >
-                  {m.status === "ready" ? "Ready" : `Phase ${m.phase}`}
+                  Open
                 </span>
               </div>
               <h3 className="mt-4 text-lg">{m.title}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{m.body}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </main>
@@ -97,10 +95,10 @@ function Dashboard() {
 }
 
 const modules = [
-  { icon: Sparkles, title: "AI Content Studio", body: "Research a topic and generate platform-ready posts in EN + HI.", status: "soon", phase: 1 },
-  { icon: Calendar, title: "Calendar", body: "Drag-and-drop scheduling with platform colour-coding.", status: "soon", phase: 2 },
-  { icon: CalendarDays, title: "Event planner", body: "WHO + MoHFW health days — already loaded.", status: "ready" },
-  { icon: Newspaper, title: "Healthcare noticeboard", body: "Indian + global health news with one-click post creation.", status: "soon", phase: 2 },
-  { icon: Plug, title: "Connected accounts", body: "Instagram, Facebook, LinkedIn and YouTube via direct OAuth.", status: "soon", phase: 3 },
-  { icon: BarChart3, title: "Performance analyser", body: "Reach, engagement and watch-time across every channel.", status: "soon", phase: 5 },
+  { icon: Sparkles, title: "AI Content Studio", body: "Research a topic and generate platform-ready posts in EN + HI.", to: "/studio" as const },
+  { icon: Calendar, title: "Content calendar", body: "Upload reels & graphics, AI captions, schedule.", to: "/calendar" as const },
+  { icon: CalendarDays, title: "Event planner", body: "WHO + MoHFW health days — one-click post drafts.", to: "/events" as const },
+  { icon: Newspaper, title: "Healthcare noticeboard", body: "India + global health news with draft-post action.", to: "/news" as const },
+  { icon: Plug, title: "Connected accounts", body: "Link Instagram, Facebook, LinkedIn and YouTube.", to: "/accounts" as const },
+  { icon: BarChart3, title: "Performance analyser", body: "Reach, engagement and watch-time across channels.", to: "/analytics" as const },
 ];
