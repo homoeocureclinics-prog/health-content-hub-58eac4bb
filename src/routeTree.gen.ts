@@ -9,15 +9,35 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StudioRouteImport } from './routes/studio'
+import { Route as NewsRouteImport } from './routes/news'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CalendarRouteImport } from './routes/calendar'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as AccountsRouteImport } from './routes/accounts'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StudioRecorderRouteImport } from './routes/studio.recorder'
 
+const StudioRoute = StudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -30,68 +50,143 @@ const CalendarRoute = CalendarRouteImport.update({
   path: '/calendar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountsRoute = AccountsRouteImport.update({
+  id: '/accounts',
+  path: '/accounts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StudioRecorderRoute = StudioRecorderRouteImport.update({
-  id: '/studio/recorder',
-  path: '/studio/recorder',
-  getParentRoute: () => rootRouteImport,
+  id: '/recorder',
+  path: '/recorder',
+  getParentRoute: () => StudioRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accounts': typeof AccountsRoute
+  '/analytics': typeof AnalyticsRoute
   '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRoute
+  '/events': typeof EventsRoute
   '/login': typeof LoginRoute
+  '/news': typeof NewsRoute
+  '/studio': typeof StudioRouteWithChildren
   '/studio/recorder': typeof StudioRecorderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accounts': typeof AccountsRoute
+  '/analytics': typeof AnalyticsRoute
   '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRoute
+  '/events': typeof EventsRoute
   '/login': typeof LoginRoute
+  '/news': typeof NewsRoute
+  '/studio': typeof StudioRouteWithChildren
   '/studio/recorder': typeof StudioRecorderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accounts': typeof AccountsRoute
+  '/analytics': typeof AnalyticsRoute
   '/calendar': typeof CalendarRoute
   '/dashboard': typeof DashboardRoute
+  '/events': typeof EventsRoute
   '/login': typeof LoginRoute
+  '/news': typeof NewsRoute
+  '/studio': typeof StudioRouteWithChildren
   '/studio/recorder': typeof StudioRecorderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calendar' | '/dashboard' | '/login' | '/studio/recorder'
+  fullPaths:
+    | '/'
+    | '/accounts'
+    | '/analytics'
+    | '/calendar'
+    | '/dashboard'
+    | '/events'
+    | '/login'
+    | '/news'
+    | '/studio'
+    | '/studio/recorder'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/dashboard' | '/login' | '/studio/recorder'
+  to:
+    | '/'
+    | '/accounts'
+    | '/analytics'
+    | '/calendar'
+    | '/dashboard'
+    | '/events'
+    | '/login'
+    | '/news'
+    | '/studio'
+    | '/studio/recorder'
   id:
     | '__root__'
     | '/'
+    | '/accounts'
+    | '/analytics'
     | '/calendar'
     | '/dashboard'
+    | '/events'
     | '/login'
+    | '/news'
+    | '/studio'
     | '/studio/recorder'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountsRoute: typeof AccountsRoute
+  AnalyticsRoute: typeof AnalyticsRoute
   CalendarRoute: typeof CalendarRoute
   DashboardRoute: typeof DashboardRoute
+  EventsRoute: typeof EventsRoute
   LoginRoute: typeof LoginRoute
-  StudioRecorderRoute: typeof StudioRecorderRoute
+  NewsRoute: typeof NewsRoute
+  StudioRoute: typeof StudioRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/studio': {
+      id: '/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof StudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -108,6 +203,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalendarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accounts': {
+      id: '/accounts'
+      path: '/accounts'
+      fullPath: '/accounts'
+      preLoaderRoute: typeof AccountsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -117,31 +226,36 @@ declare module '@tanstack/react-router' {
     }
     '/studio/recorder': {
       id: '/studio/recorder'
-      path: '/studio/recorder'
+      path: '/recorder'
       fullPath: '/studio/recorder'
       preLoaderRoute: typeof StudioRecorderRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof StudioRoute
     }
   }
 }
 
+interface StudioRouteChildren {
+  StudioRecorderRoute: typeof StudioRecorderRoute
+}
+
+const StudioRouteChildren: StudioRouteChildren = {
+  StudioRecorderRoute: StudioRecorderRoute,
+}
+
+const StudioRouteWithChildren =
+  StudioRoute._addFileChildren(StudioRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountsRoute: AccountsRoute,
+  AnalyticsRoute: AnalyticsRoute,
   CalendarRoute: CalendarRoute,
   DashboardRoute: DashboardRoute,
+  EventsRoute: EventsRoute,
   LoginRoute: LoginRoute,
-  StudioRecorderRoute: StudioRecorderRoute,
+  NewsRoute: NewsRoute,
+  StudioRoute: StudioRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
