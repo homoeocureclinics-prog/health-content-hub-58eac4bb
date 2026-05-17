@@ -15,11 +15,13 @@ type Variant = {
   hashtags: string[];
 };
 
+// Must match the variant_kind enum in Postgres:
+// ig_caption | ig_reel_script | ig_carousel | fb_post | li_post | li_article | yt_short_script | yt_long_script
 const KIND_MAP: Record<string, string> = {
   instagram: "ig_caption",
   facebook: "fb_post",
   linkedin: "li_article",
-  youtube: "yt_long",
+  youtube: "yt_long_script",
 };
 
 export const generateContentBundle = createServerFn({ method: "POST" })
