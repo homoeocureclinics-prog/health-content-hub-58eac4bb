@@ -15,11 +15,13 @@ type Variant = {
   hashtags: string[];
 };
 
+// Must match the variant_kind enum in Postgres:
+// ig_caption | ig_reel_script | ig_carousel | fb_post | li_post | li_article | yt_short_script | yt_long_script
 const KIND_MAP: Record<string, string> = {
   instagram: "ig_caption",
   facebook: "fb_post",
   linkedin: "li_article",
-  youtube: "yt_long",
+  youtube: "yt_long_script",
 };
 
 export const generateContentBundle = createServerFn({ method: "POST" })
@@ -63,7 +65,8 @@ Platform rules:
 - youtube: a long-form script of 350-600 words with [INTRO], [BODY], [CTA] sections. Title <= 70 chars.
 
 Return STRICT JSON:
-{"research_summary": string, "citations": [{"title": string, "url": string}], "variants": [{"platform": string, "language": "en"|"hi", "title": string|null, "body": string, "hashtags": string[]}]}`;
+{"research_summary": string, "citations": [{"title": string, "url": string}], "variants": [{"platform": string, "language": "en"|"hi", "title": string|null, "body": string, "hashtags": string[]}]}
+Citations MUST include 3-6 real, working URLs from authoritative primary sources relevant to the topic (e.g. https://tbcindia.mohfw.gov.in for NTEP/TB India, https://www.who.int, https://www.icmr.gov.in, https://www.mohfw.gov.in, peer-reviewed journals). Never fabricate URLs.`;
 
     const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

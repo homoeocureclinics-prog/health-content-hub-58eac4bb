@@ -139,16 +139,27 @@ function StudioPage() {
                 <p className="text-sm text-muted-foreground mt-2 line-clamp-3">{d.research_summary}</p>
               )}
               {Array.isArray(d.citations) && d.citations.length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-2 text-xs">
-                  {d.citations.slice(0, 6).map((c: any, i: number) => (
-                    <a key={i} href={c.url} target="_blank" rel="noreferrer"
-                      className="px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground hover:underline">
-                      {c.title?.slice(0, 50) ?? c.url}
-                    </a>
-                  ))}
+                <div className="mt-3">
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Sources</div>
+                  <ul className="space-y-1 text-sm">
+                    {d.citations.map((c: any, i: number) => (
+                      <li key={i} className="flex gap-2">
+                        <span className="text-muted-foreground">{i + 1}.</span>
+                        <a href={c.url} target="_blank" rel="noreferrer"
+                          className="text-primary underline-offset-2 hover:underline break-all">
+                          {c.title || c.url}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>
+            {d.post_variants.length === 0 ? (
+              <div className="rounded-xl border border-dashed bg-background p-4 text-sm text-muted-foreground">
+                No platform variants were saved for this draft (likely due to a previous schema error). Regenerate the topic to produce fresh variants.
+              </div>
+            ) : (
             <div className="grid md:grid-cols-2 gap-3">
               {d.post_variants.map((v, i) => {
                 const Icon = PLATFORM_ICON[v.platform] ?? Sparkles;
@@ -175,6 +186,7 @@ function StudioPage() {
                 );
               })}
             </div>
+            )}
           </article>
         ))}
       </main>
