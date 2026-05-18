@@ -2,7 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Camera, Square, Pause, Play, Download, RotateCcw, Type, Gauge } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { ArrowLeft, Camera, Square, Pause, Play, Download, RotateCcw, Type, Gauge, FileText, Instagram, Facebook, Linkedin, Youtube, Sparkles } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/studio/recorder")({
   component: RecorderPage,
