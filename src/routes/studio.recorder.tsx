@@ -34,6 +34,32 @@ function RecorderPage() {
   const [lastBlobUrl, setLastBlobUrl] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
+  // Drafts loader
+  type DraftVariant = { id: string; platform: string; language: string; title: string | null; body: string; hashtags: string[]; posts: { topic: string; created_at: string } | null };
+  const [drafts, setDrafts] = useState<DraftVariant[]>([]);
+  const [draftsLoading, setDraftsLoading] = useState(false);
+  const [draftsOpen, setDraftsOpen] = useState(false);
+
+  const loadDrafts = async () => {
+    setDraftsLoading(true);
+    const { data } = await supabase
+      .from("post_variants")
+      .select("id,platform,language,title,body,hashtags,posts(topic,created_at)")
+      .order("created_at", { ascending: false })
+      .limit(100);
+    setDrafts((data as any) ?? []);
+    setDraftsLoading(false);
+  };
+
+  const useScript = (v: DraftVariant) => {
+    const tags = v.hashtags?.length ? "\n\n" + v.hashtags.map((h) => "#" + h).join(" ") : "";
+    setScript(`${v.title ? v.title + "\n\n" : ""}${v.body}${tags}`);
+    setDraftsOpen(false);
+    if (promptRef.current) promptRef.current.scrollTop = 0;
+  };
+
+  const PLATFORM_ICON: Record<string, any> = { instagram: Instagram, facebook: Facebook, linkedin: Linkedin, youtube: Youtube };
+
   // Init camera+mic
   const initCamera = async (face: "user" | "environment") => {
     setErr(null);
