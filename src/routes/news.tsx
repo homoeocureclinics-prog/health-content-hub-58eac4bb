@@ -24,8 +24,18 @@ function NewsPage() {
   const genFn = useServerFn(generateContentBundle);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => { if (!data.session) navigate({ to: "/login" }); });
-    load();
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (!data.session) { navigate({ to: "/login" }); return; }
+      const { data: rows } = await supabase.from("news_items").select("*").order("fetched_at", { ascending: false }).limit(50);
+      const list = (rows as any[]) ?? [];
+      setItems(list as Item[]);
+      if (list.length === 0) {
+        setRefreshing(true);
+        try { await refreshFn({}); await load(); } catch (e: any) { console.error(e); }
+        finally { setRefreshing(false); }
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const load = async () => {
