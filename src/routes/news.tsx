@@ -89,24 +89,29 @@ function NewsPage() {
             No news yet. Click <span className="font-medium">Refresh</span> to fetch the latest healthcare stories.
           </div>
         ) : filtered.map((i) => (
-          <article key={i.id} className="rounded-xl border bg-card p-4" style={{ boxShadow: "var(--shadow-soft)" }}>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
-              <span className="px-2 py-0.5 rounded-full bg-secondary">{i.region}</span>
-              {i.source && <span>{i.source}</span>}
-              {i.published_at && <span>· {new Date(i.published_at).toLocaleDateString()}</span>}
-              {i.specialty_tags?.slice(0, 4).map((t) => (
-                <span key={t} className="px-2 py-0.5 rounded-full border">{t}</span>
-              ))}
-            </div>
-            <h3 className="mt-2 font-medium">{i.title}</h3>
-            {i.summary && <p className="text-sm text-muted-foreground mt-1">{i.summary}</p>}
+          <article key={i.id} className="rounded-xl border bg-card p-4 transition hover:-translate-y-0.5 hover:shadow-lg" style={{ boxShadow: "var(--shadow-soft)" }}>
+            <a href={i.url} target="_blank" rel="noreferrer" className="block group">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
+                <span className="px-2 py-0.5 rounded-full bg-secondary">{i.region}</span>
+                {i.source && <span>{i.source}</span>}
+                {i.published_at && <span>· {new Date(i.published_at).toLocaleDateString()}</span>}
+                {i.specialty_tags?.slice(0, 4).map((t) => (
+                  <span key={t} className="px-2 py-0.5 rounded-full border">{t}</span>
+                ))}
+              </div>
+              <h3 className="mt-2 font-medium group-hover:underline inline-flex items-start gap-1.5">
+                {i.title}
+                <ExternalLink className="size-3.5 mt-1 shrink-0 text-muted-foreground" />
+              </h3>
+              {i.summary && <p className="text-sm text-muted-foreground mt-1">{i.summary}</p>}
+            </a>
             <div className="mt-3 flex items-center gap-2">
               <Button size="sm" onClick={() => draftFor(i)} disabled={busyId === i.id}>
                 {busyId === i.id ? <Loader2 className="size-3.5 animate-spin" /> : <Sparkles className="size-3.5" />}
                 Draft post
               </Button>
               <a href={i.url} target="_blank" rel="noreferrer" className="text-xs inline-flex items-center gap-1 text-muted-foreground hover:text-foreground">
-                <ExternalLink className="size-3" /> Read
+                <ExternalLink className="size-3" /> Open source
               </a>
             </div>
           </article>
