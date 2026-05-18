@@ -283,13 +283,54 @@ function RecorderPage() {
           )}
 
           <div className="rounded-xl bg-white/5 p-4 space-y-3">
-            <label className="block text-xs uppercase tracking-widest opacity-70">Script</label>
+            <div className="flex items-center justify-between">
+              <label className="block text-xs uppercase tracking-widest opacity-70">Script</label>
+              <Sheet open={draftsOpen} onOpenChange={(o) => { setDraftsOpen(o); if (o && drafts.length === 0) loadDrafts(); }}>
+                <SheetTrigger asChild>
+                  <Button size="sm" variant="secondary" className="h-7">
+                    <FileText className="size-3.5" /> Load from AI drafts
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-full sm:max-w-xl overflow-y-auto">
+                  <SheetHeader>
+                    <SheetTitle className="flex items-center gap-2"><Sparkles className="size-4" /> AI Content Studio drafts</SheetTitle>
+                  </SheetHeader>
+                  <div className="mt-4 space-y-3">
+                    {draftsLoading && <div className="text-sm text-muted-foreground">Loading…</div>}
+                    {!draftsLoading && drafts.length === 0 && (
+                      <div className="text-sm text-muted-foreground">
+                        No drafts yet. Generate one in the AI Content Studio first.
+                      </div>
+                    )}
+                    {drafts.map((v) => {
+                      const Icon = PLATFORM_ICON[v.platform] ?? Sparkles;
+                      return (
+                        <button
+                          key={v.id}
+                          onClick={() => useScript(v)}
+                          className="w-full text-left rounded-xl border bg-card p-3 hover:bg-accent transition"
+                        >
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                            <Icon className="size-3.5" />
+                            <span className="capitalize">{v.platform}</span>
+                            <span>· {v.language === "hi" ? "हिन्दी" : "English"}</span>
+                            {v.posts?.topic && <span className="truncate">· {v.posts.topic}</span>}
+                          </div>
+                          {v.title && <div className="mt-1 font-medium text-sm">{v.title}</div>}
+                          <p className="mt-1 text-xs line-clamp-3 whitespace-pre-wrap">{v.body}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
             <Textarea
               value={script}
               onChange={(e) => setScript(e.target.value)}
               rows={10}
               className="bg-white/5 text-white border-white/10"
-              placeholder="Paste or type your script — it will scroll while you record."
+              placeholder="Paste or type your script — or tap 'Load from AI drafts' to pull in a script you generated."
             />
           </div>
 
