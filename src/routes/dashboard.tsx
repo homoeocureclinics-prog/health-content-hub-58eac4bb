@@ -63,6 +63,10 @@ function Dashboard() {
           </Link>
         </div>
 
+        <div className="mt-8">
+          <NewsTicker />
+        </div>
+
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {modules.map((m) => (
             <Link
