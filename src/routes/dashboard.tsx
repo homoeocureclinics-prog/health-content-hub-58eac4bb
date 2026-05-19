@@ -64,7 +64,7 @@ function Dashboard() {
         </div>
 
         <div className="mt-8">
-          <NewsTicker />
+          <WhatsAppTicker />
         </div>
 
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
