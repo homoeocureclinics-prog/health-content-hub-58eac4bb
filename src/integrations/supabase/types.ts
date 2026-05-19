@@ -536,6 +536,45 @@ export type Database = {
         }
         Relationships: []
       }
+      whatsapp_channels: {
+        Row: {
+          created_at: string
+          handle: string | null
+          id: string
+          invite_url: string
+          is_own: boolean
+          name: string
+          niche_tags: string[]
+          priority: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          handle?: string | null
+          id?: string
+          invite_url: string
+          is_own?: boolean
+          name: string
+          niche_tags?: string[]
+          priority?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          handle?: string | null
+          id?: string
+          invite_url?: string
+          is_own?: boolean
+          name?: string
+          niche_tags?: string[]
+          priority?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

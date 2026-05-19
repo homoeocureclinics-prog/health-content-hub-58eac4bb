@@ -1,9 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Stethoscope, LogOut, Sparkles, Calendar, BarChart3, Newspaper, Plug, CalendarDays } from "lucide-react";
+import { Stethoscope, LogOut, Sparkles, Calendar, BarChart3, MessageCircle, Plug, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { NewsTicker } from "@/components/NewsTicker";
+import { WhatsAppTicker } from "@/components/WhatsAppTicker";
 
 export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
@@ -64,7 +64,7 @@ function Dashboard() {
         </div>
 
         <div className="mt-8">
-          <NewsTicker />
+          <WhatsAppTicker />
         </div>
 
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -103,7 +103,7 @@ const modules = [
   { icon: Sparkles, title: "AI Content Studio", body: "Research a topic and generate platform-ready posts in EN + HI.", to: "/studio" as const },
   { icon: Calendar, title: "Content calendar", body: "Upload reels & graphics, AI captions, schedule.", to: "/calendar" as const },
   { icon: CalendarDays, title: "Event planner", body: "WHO + MoHFW health days — one-click post drafts.", to: "/events" as const },
-  { icon: Newspaper, title: "Healthcare noticeboard", body: "India + global health news with draft-post action.", to: "/news" as const },
+  { icon: MessageCircle, title: "WhatsApp Channels", body: "Follow news channels + your own — niche updates prioritized.", to: "/channels" as const },
   { icon: Plug, title: "Connected accounts", body: "Link Instagram, Facebook, LinkedIn and YouTube.", to: "/accounts" as const },
   { icon: BarChart3, title: "Performance analyser", body: "Reach, engagement and watch-time across channels.", to: "/analytics" as const },
 ];

@@ -14,6 +14,7 @@ import { Route as NewsRouteImport } from './routes/news'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ChannelsRouteImport } from './routes/channels'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AccountsRouteImport } from './routes/accounts'
@@ -43,6 +44,11 @@ const EventsRoute = EventsRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChannelsRoute = ChannelsRouteImport.update({
+  id: '/channels',
+  path: '/channels',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalendarRoute = CalendarRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/accounts': typeof AccountsRoute
   '/analytics': typeof AnalyticsRoute
   '/calendar': typeof CalendarRoute
+  '/channels': typeof ChannelsRoute
   '/dashboard': typeof DashboardRoute
   '/events': typeof EventsRoute
   '/login': typeof LoginRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/accounts': typeof AccountsRoute
   '/analytics': typeof AnalyticsRoute
   '/calendar': typeof CalendarRoute
+  '/channels': typeof ChannelsRoute
   '/dashboard': typeof DashboardRoute
   '/events': typeof EventsRoute
   '/login': typeof LoginRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/accounts': typeof AccountsRoute
   '/analytics': typeof AnalyticsRoute
   '/calendar': typeof CalendarRoute
+  '/channels': typeof ChannelsRoute
   '/dashboard': typeof DashboardRoute
   '/events': typeof EventsRoute
   '/login': typeof LoginRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/accounts'
     | '/analytics'
     | '/calendar'
+    | '/channels'
     | '/dashboard'
     | '/events'
     | '/login'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/accounts'
     | '/analytics'
     | '/calendar'
+    | '/channels'
     | '/dashboard'
     | '/events'
     | '/login'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/accounts'
     | '/analytics'
     | '/calendar'
+    | '/channels'
     | '/dashboard'
     | '/events'
     | '/login'
@@ -152,6 +164,7 @@ export interface RootRouteChildren {
   AccountsRoute: typeof AccountsRoute
   AnalyticsRoute: typeof AnalyticsRoute
   CalendarRoute: typeof CalendarRoute
+  ChannelsRoute: typeof ChannelsRoute
   DashboardRoute: typeof DashboardRoute
   EventsRoute: typeof EventsRoute
   LoginRoute: typeof LoginRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/channels': {
+      id: '/channels'
+      path: '/channels'
+      fullPath: '/channels'
+      preLoaderRoute: typeof ChannelsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/calendar': {
@@ -250,6 +270,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountsRoute: AccountsRoute,
   AnalyticsRoute: AnalyticsRoute,
   CalendarRoute: CalendarRoute,
+  ChannelsRoute: ChannelsRoute,
   DashboardRoute: DashboardRoute,
   EventsRoute: EventsRoute,
   LoginRoute: LoginRoute,
