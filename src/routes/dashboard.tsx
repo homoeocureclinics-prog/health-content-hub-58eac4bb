@@ -1,9 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Stethoscope, LogOut, Sparkles, Calendar, BarChart3, Newspaper, Plug, CalendarDays } from "lucide-react";
+import { Stethoscope, LogOut, Sparkles, Calendar, BarChart3, MessageCircle, Plug, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { NewsTicker } from "@/components/NewsTicker";
+import { WhatsAppTicker } from "@/components/WhatsAppTicker";
 
 export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
