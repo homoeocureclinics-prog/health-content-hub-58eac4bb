@@ -461,9 +461,49 @@ export type Database = {
           },
         ]
       }
-      social_accounts: {
+      social_account_secrets: {
         Row: {
           access_token: string | null
+          created_at: string
+          refresh_token: string | null
+          scopes: string[] | null
+          social_account_id: string
+          token_expires_at: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          created_at?: string
+          refresh_token?: string | null
+          scopes?: string[] | null
+          social_account_id: string
+          token_expires_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          created_at?: string
+          refresh_token?: string | null
+          scopes?: string[] | null
+          social_account_id?: string
+          token_expires_at?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_account_secrets_social_account_id_fkey"
+            columns: ["social_account_id"]
+            isOneToOne: true
+            referencedRelation: "social_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_accounts: {
+        Row: {
           avatar_url: string | null
           created_at: string
           display_name: string | null
@@ -472,15 +512,11 @@ export type Database = {
           id: string
           meta: Json
           platform: Database["public"]["Enums"]["social_platform"]
-          refresh_token: string | null
-          scopes: string[] | null
           status: string
-          token_expires_at: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
-          access_token?: string | null
           avatar_url?: string | null
           created_at?: string
           display_name?: string | null
@@ -489,15 +525,11 @@ export type Database = {
           id?: string
           meta?: Json
           platform: Database["public"]["Enums"]["social_platform"]
-          refresh_token?: string | null
-          scopes?: string[] | null
           status?: string
-          token_expires_at?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
-          access_token?: string | null
           avatar_url?: string | null
           created_at?: string
           display_name?: string | null
@@ -506,10 +538,7 @@ export type Database = {
           id?: string
           meta?: Json
           platform?: Database["public"]["Enums"]["social_platform"]
-          refresh_token?: string | null
-          scopes?: string[] | null
           status?: string
-          token_expires_at?: string | null
           updated_at?: string
           user_id?: string
         }
