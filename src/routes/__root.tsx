@@ -73,14 +73,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "MedSocial AI App" },
+      { name: "description", content: "while you care for your patients, AI will  help you CREATE YOR BRAND PRESENCE ON SOCIAL MEDIA as per your commands and comfort." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "MedSocial AI App" },
+      { property: "og:description", content: "while you care for your patients, AI will  help you CREATE YOR BRAND PRESENCE ON SOCIAL MEDIA as per your commands and comfort." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "MedSocial AI App" },
+      { name: "twitter:description", content: "while you care for your patients, AI will  help you CREATE YOR BRAND PRESENCE ON SOCIAL MEDIA as per your commands and comfort." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/5a40de35-41a8-4b3c-9737-a1a1e89a4588" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/5a40de35-41a8-4b3c-9737-a1a1e89a4588" },
     ],
     links: [
       {
