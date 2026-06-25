@@ -62,11 +62,13 @@ export const refreshNews = createServerFn({ method: "POST" })
     })).filter((i) => i.title && /^https?:\/\//i.test(i.url));
 
     if (items.length) {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
       const { error } = await supabaseAdmin.from("news_items").insert(items as any);
       if (error) {
         console.error("[refreshNews] insert failed", error);
         throw new Error(`Could not save news: ${error.message}`);
       }
     }
+
     return { inserted: items.length };
   });
