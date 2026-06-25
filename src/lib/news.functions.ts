@@ -1,12 +1,21 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export const refreshNews = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async () => {
+  .handler(async ({ context }) => {
+    // Authorize: only admins may refresh the global news feed
+    const { data: isAdmin, error: roleErr } = await context.supabase
+      .rpc("has_role", { _user_id: context.userId, _role: "admin" });
+    if (roleErr) {
+      console.error("[refreshNews] role check failed", roleErr);
+      throw new Error("Authorization check failed");
+    }
+    if (!isAdmin) throw new Error("Forbidden: admin role required");
+
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("Lovable AI key missing");
+
 
     const sys = `You curate healthcare news for Indian doctors. Return 8 recent, real, high-signal items from authoritative sources (WHO, MoHFW, ICMR, The Lancet, NEJM, The Hindu Health, Times of India Health). Mix India + global. Return STRICT JSON {"items":[{"title":string,"summary":string,"url":string,"source":string,"region":"IN"|"GLOBAL","specialty_tags":string[],"published_at":string|null}]}`;
 
